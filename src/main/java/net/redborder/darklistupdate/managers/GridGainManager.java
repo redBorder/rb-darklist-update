@@ -1,5 +1,6 @@
 package net.redborder.darklistupdate.managers;
 
+import net.redborder.darklistupdate.utils.ConfigFile;
 import net.redborder.darklistupdate.utils.logger.RbLogger;
 import org.gridgain.grid.Grid;
 import org.gridgain.grid.GridConfiguration;
@@ -32,7 +33,7 @@ public class GridGainManager {
     static Logger log = RbLogger.getLogger("LOGSSSSSSSSSSS");
 
     public static void init() throws GridException {
-        Map<String, Object> gridGainConfig = loadGridGainConfig();
+        Map<String, Object> gridGainConfig = ConfigFile.getInstance().getCacheConfig();
 
         if (!gridGainConfig.containsKey("s3")) {
             _gridGainServers = (List<String>) gridGainConfig.get("servers");
@@ -47,18 +48,6 @@ public class GridGainManager {
         } catch (GridException e) {
             e.printStackTrace();
         }
-    }
-
-    private static Map<String, Object> loadGridGainConfig() {
-        Map<String, Object> map = null;
-        try {
-            map = (Map<String, Object>) Yaml.load(new File(GRIDGAIN_CONFIG_FILE));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        Map<String, Object> general = (Map<String, Object>) map.get("general");
-        return (Map<String, Object>) general.get("gridgain");
-
     }
 
     private static GridConfiguration initConfig() {

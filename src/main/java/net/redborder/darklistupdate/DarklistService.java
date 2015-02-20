@@ -2,7 +2,6 @@ package net.redborder.darklistupdate;
 
 
 import net.redborder.darklistupdate.managers.GridGainManager;
-import net.redborder.darklistupdate.managers.HttpManager;
 import net.redborder.darklistupdate.utils.ConfigFile;
 import net.redborder.darklistupdate.managers.ZkManager;
 import net.redborder.taskassigner.ZkTasksHandler;
@@ -19,7 +18,7 @@ import java.util.Date;
  */
 public class DarklistService {
 
-    static final long INTERVAL = 600 * 1000L;
+    static long INTERVAL;
     static ZkTasksHandler tasksHandler;
     static UpdaterService updater;
     static Boolean running;
@@ -33,6 +32,7 @@ public class DarklistService {
         tasksHandler = new ZkTasksHandler(ConfigFile.getInstance().getZkConnect(), "/rb_darklist");
         updater = new UpdaterService();
         tasksHandler.addListener(updater);
+        INTERVAL = ConfigFile.getInstance().getFromGeneral("interval") != null ? Integer.valueOf((Integer) ConfigFile.getInstance().getFromGeneral("interval")).longValue() * 60 * 1000L :  600 * 1000L;
         try {
             Thread.sleep(7000);
         } catch (InterruptedException e) {

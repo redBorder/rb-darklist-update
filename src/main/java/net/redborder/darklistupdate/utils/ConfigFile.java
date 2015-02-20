@@ -18,8 +18,9 @@ public class ConfigFile {
 
     private static ConfigFile theInstance = null;
     private static final Object initMonitor = new Object();
-    private final String CONFIG_FILE_PATH = "/opt/rb/etc/darklist_config.yml";
+    private final String CONFIG_FILE_PATH = "/opt/rb/var/rb-darklist/conf/darklist_config.yml";
     private Map<String, Object> _general;
+    private Map<String, Object> _gridgain;
 
     public static ConfigFile getInstance() {
         if (theInstance == null) {
@@ -57,11 +58,16 @@ public class ConfigFile {
 
          /* General Config */
         _general = (Map<String, Object>) map.get("general");
+        _gridgain = (Map<String, Object>) map.get("gridgain");
     }
 
 
     public String getZkConnect() {
         return (String) getFromGeneral("zk_connect");
+    }
+
+    public Map<String, Object> getCacheConfig(){
+        return _gridgain;
     }
 
 
