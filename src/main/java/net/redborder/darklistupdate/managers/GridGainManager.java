@@ -27,10 +27,8 @@ import java.util.logging.Logger;
  */
 public class GridGainManager {
 
-    final static String GRIDGAIN_CONFIG_FILE = "gridgain.yml";
     private static List<String> _gridGainServers;
     private static Grid grid;
-    static Logger log = RbLogger.getLogger("LOGSSSSSSSSSSS");
 
     public static void init() throws GridException {
         Map<String, Object> gridGainConfig = ConfigFile.getInstance().getCacheConfig();
@@ -42,7 +40,7 @@ public class GridGainManager {
         grid = GridGain.start(initConfig());
     }
 
-    public static void end(){
+    public static void end() {
         try {
             grid.close();
         } catch (GridException e) {
@@ -130,12 +128,14 @@ public class GridGainManager {
             for (int i = 0; i < dataToSave.size(); i++) {
                 mapToSave.put(keysToSave.get(i), dataToSave.get(i));
             }
+            System.out.println("Saved: " + mapToSave.size());
 
             cache.putAll(mapToSave);
-            System.out.println("Saved: " + mapToSave.size());
         } catch (GridException e) {
             e.printStackTrace();
+            System.out.println("Can't save!");
         }
+
     }
 
 
@@ -172,13 +172,18 @@ public class GridGainManager {
 
             GridCache<String, Map<String, Object>> cache = grid.cache("darklist");
 
-            try {
-                if (keysToDelete.size() > 0) {
+
+            if (keysToDelete.size() > 0) {
+                try {
                     System.out.println("Deleting ... ");
                     cache.removeAll(keysToDelete);
                     System.out.println("Deleted: " + keysToDelete.size());
+                } catch (Exception ex) {
+                    System.out.println("Can't delete!");
                 }
+            }
 
+            try {
                 System.out.println("Saving ... ");
 
                 Map<String, Map<String, Object>> mapToSave = new HashMap<String, Map<String, Object>>();
@@ -191,6 +196,7 @@ public class GridGainManager {
                 cache.putAll(mapToSave);
                 System.out.println("Saved: " + mapToSave.size());
             } catch (GridException e) {
+                System.out.println("Can't save!");
                 e.printStackTrace();
             }
         } else {

@@ -29,7 +29,7 @@ public class DarklistService {
         ZkManager.init();
         GridGainManager.init();
         running = true;
-        tasksHandler = new ZkTasksHandler(ConfigFile.getInstance().getZkConnect(), "/rb_darklist");
+        tasksHandler = new ZkTasksHandler(ConfigFile.getInstance().getZkConnect(), "/rb-darklist");
         updater = new UpdaterService();
         tasksHandler.addListener(updater);
         INTERVAL = ConfigFile.getInstance().getFromGeneral("interval") != null ? Integer.valueOf((Integer) ConfigFile.getInstance().getFromGeneral("interval")).longValue() * 60 * 1000L :  600 * 1000L;

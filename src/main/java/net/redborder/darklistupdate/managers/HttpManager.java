@@ -27,16 +27,25 @@ public class HttpManager {
             HttpPost httppost = new HttpPost(HttpURLs.URL + HttpURLs.CURRENT_REVISION);
 
             HttpResponse response = httpclient.execute(httppost);
+            if (response.getStatusLine().getStatusCode() == 200) {
 
-            HttpEntity entity = response.getEntity();
+                HttpEntity entity = response.getEntity();
 
-            InputStream instream = entity.getContent();
+                InputStream instream = entity.getContent();
 
-            String theString = IOUtils.toString(instream).trim();
+                String theString = IOUtils.toString(instream).trim();
 
-            rev = Integer.valueOf(theString.trim());
+                rev = Integer.valueOf(theString.trim());
+            } else {
+                rev = ZkManager.queryRevision();
+                if (rev == null)
+                    rev = 0;
+            }
         } catch (IOException e) {
             e.printStackTrace();
+            rev = ZkManager.queryRevision();
+            if (rev == null)
+                rev = 0;
         }
 
         return rev;
@@ -52,14 +61,20 @@ public class HttpManager {
             System.out.println("Downloading all list ...");
             HttpResponse response = httpclient.execute(httppost);
 
-            HttpEntity entity = response.getEntity();
+            if (response.getStatusLine().getStatusCode() == 200) {
+                HttpEntity entity = response.getEntity();
 
-            InputStream instream = entity.getContent();
+                InputStream instream = entity.getContent();
 
-            Reader readerCsv = new InputStreamReader(instream);
-            buffer = new BufferedReader(readerCsv);
-            System.out.println("Downloaded all list!");
+                Reader readerCsv = new InputStreamReader(instream);
+                buffer = new BufferedReader(readerCsv);
+            } else {
+                Reader readerCsv = new StringReader("");
+                buffer = new BufferedReader(readerCsv);
+                buffer = new BufferedReader(readerCsv);
+            }
 
+            System.out.println("Downloaded all list! Status Code: " + response.getStatusLine().getStatusCode());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -79,14 +94,20 @@ public class HttpManager {
 
             HttpResponse response = httpclient.execute(httppost);
 
-            HttpEntity entity = response.getEntity();
+            if (response.getStatusLine().getStatusCode() == 200) {
+                HttpEntity entity = response.getEntity();
 
-            InputStream instream = entity.getContent();
+                InputStream instream = entity.getContent();
 
-            Reader readerCsv = new InputStreamReader(instream);
-            buffer = new BufferedReader(readerCsv);
+                Reader readerCsv = new InputStreamReader(instream);
+                buffer = new BufferedReader(readerCsv);
+            } else {
+                Reader readerCsv = new StringReader("");
+                buffer = new BufferedReader(readerCsv);
+                buffer = new BufferedReader(readerCsv);
+            }
 
-            System.out.println("Downloaded incremental list!");
+            System.out.println("Downloaded incremental list! Status Code: " + response.getStatusLine().getStatusCode());
 
         } catch (IOException e) {
             e.printStackTrace();
