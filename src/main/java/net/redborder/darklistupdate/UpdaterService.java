@@ -49,7 +49,7 @@ public class UpdaterService implements NotifyListener {
         System.out.println("\n");
     }
 
-    private List<String[]> prepareData(BufferedReader data) {
+    public static List<String[]> prepareData(BufferedReader data) {
         System.out.println("Preparing data ...");
         List<String[]> csvAll;
         try {
@@ -78,7 +78,7 @@ public class UpdaterService implements NotifyListener {
         return csvAll;
     }
 
-    private List<String[]> csvAll(List<String> toParse) throws IOException {
+    private static List<String[]> csvAll(List<String> toParse) throws IOException {
         List<String[]> csvAll = new ArrayList<String[]>();
         for (String aline : toParse) {
             String[] csv = aline.split("#");

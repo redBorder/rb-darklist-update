@@ -204,7 +204,7 @@ public class GridGainManager {
         }
     }
 
-    private static String giveMeScore(Integer score) {
+    public static String giveMeScore(Integer score) {
         String score_name = "";
         if (100 >= score && score > 95) {
             score_name = "very high";
