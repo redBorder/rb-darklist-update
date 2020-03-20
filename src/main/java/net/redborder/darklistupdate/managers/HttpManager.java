@@ -6,14 +6,14 @@ import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.*;
 import java.util.logging.Logger;
 
 /**
- * Created by andresgomez on 18/2/15.
+ * Created by manegron on 20/3/20.
  */
 public class HttpManager {
 
@@ -24,9 +24,9 @@ public class HttpManager {
 
         try {
             HttpClient httpclient = HttpClients.createDefault();
-            HttpPost httppost = new HttpPost(HttpURLs.URL + HttpURLs.CURRENT_REVISION);
+            HttpGet httpget = new HttpGet(HttpURLs.URL + HttpURLs.CURRENT_REVISION);
 
-            HttpResponse response = httpclient.execute(httppost);
+            HttpResponse response = httpclient.execute(httpget);
             if (response.getStatusLine().getStatusCode() == 200) {
 
                 HttpEntity entity = response.getEntity();
@@ -56,10 +56,10 @@ public class HttpManager {
 
         try {
             HttpClient httpclient = HttpClients.createDefault();
-            HttpPost httppost = new HttpPost(HttpURLs.URL + HttpURLs.ALL_DATA);
+            HttpGet httpget = new HttpGet(HttpURLs.URL + HttpURLs.ALL_DATA);
 
             System.out.println("Downloading all list ...");
-            HttpResponse response = httpclient.execute(httppost);
+            HttpResponse response = httpclient.execute(httpget);
 
             if (response.getStatusLine().getStatusCode() == 200) {
                 HttpEntity entity = response.getEntity();
@@ -88,11 +88,11 @@ public class HttpManager {
 
         try {
             HttpClient httpclient = HttpClients.createDefault();
-            HttpPost httppost = new HttpPost(HttpURLs.URL + HttpURLs.ONE_REVISION + rev);
+            HttpGet httpget = new HttpGet(HttpURLs.URL + HttpURLs.ONE_REVISION + rev);
 
             System.out.println("Downloading incremental list ...");
 
-            HttpResponse response = httpclient.execute(httppost);
+            HttpResponse response = httpclient.execute(httpget);
 
             if (response.getStatusLine().getStatusCode() == 200) {
                 HttpEntity entity = response.getEntity();
