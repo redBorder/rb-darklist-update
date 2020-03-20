@@ -4,6 +4,7 @@ package net.redborder.darklistupdate;
 import net.redborder.darklistupdate.managers.GridGainManager;
 import net.redborder.darklistupdate.managers.HttpManager;
 import net.redborder.darklistupdate.utils.ConfigFile;
+import net.redborder.darklistupdate.utils.Utils;
 import net.redborder.darklistupdate.managers.ZkManager;
 import net.redborder.taskassigner.ZkTasksHandler;
 import org.codehaus.jackson.JsonGenerationException;
@@ -103,7 +104,7 @@ public class DarklistService {
                 Integer score = Integer.valueOf(nextLine[1]) * Integer.valueOf(nextLine[2]) * 2;
 
                 map.put("darklist_score", score);
-                map.put("darklist_score_name", GridGainManager.giveMeScore(score));
+                map.put("darklist_score_name", Utils.giveMeScore(score));
                 map.put("darklist_category", nextLine[3]);
 
                 Map<String, Object> pair = new HashMap<>();
