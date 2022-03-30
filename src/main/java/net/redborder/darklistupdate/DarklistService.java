@@ -6,7 +6,7 @@ import net.redborder.darklistupdate.managers.HttpManager;
 import net.redborder.darklistupdate.utils.ConfigFile;
 import net.redborder.darklistupdate.utils.Utils;
 import net.redborder.darklistupdate.managers.ZkManager;
-import net.redborder.taskassigner.ZkTasksHandler;
+import net.redborder.clusterizer.ZkTasksHandler;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.gridgain.grid.GridException;
