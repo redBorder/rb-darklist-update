@@ -4,7 +4,7 @@ import net.redborder.darklistupdate.managers.GridGainManager;
 import net.redborder.darklistupdate.managers.HttpManager;
 import net.redborder.darklistupdate.managers.ZkManager;
 import net.redborder.darklistupdate.utils.logger.RbLogger;
-import net.redborder.taskassigner.NotifyListener;
+import net.redborder.clusterizer.NotifyListener;
 
 import java.io.BufferedReader;
 import java.io.IOException;
