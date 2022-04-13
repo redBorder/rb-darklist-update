@@ -8,6 +8,8 @@ MOCK_CONFIG?=default
 
 RESULT_DIR?=pkgs
 
+LATEST?=HEAD
+
 all: rpm
 
 
