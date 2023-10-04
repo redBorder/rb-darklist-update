@@ -8,6 +8,8 @@ Source0: %{name}-%{version}.tar.gz
 
 BuildRequires: maven java-devel
 
+%global debug_package %{nil}
+
 Summary: rb-darklist-update package
 Requires: java
 
@@ -37,5 +39,7 @@ rm -rf %{buildroot}
 /usr/lib/%{name}
 
 %changelog
+* Wed Oct 4 2023 David Vanhoucke <dvanhoucke@redborder.com> - 1.0.0-1
+- update spec
 * Tue Mar 29 2022 Eduardo Reyes <eareyes@redborder.com> - 0.0.1-1
 - first spec version
